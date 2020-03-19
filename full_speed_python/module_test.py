@@ -1,5 +1,5 @@
 def hello_world():
-    # print('hello_world')
+    print('hello_world hello')
     return 'hello_world'
 
 
