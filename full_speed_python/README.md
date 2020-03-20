@@ -1,9 +1,10 @@
 #Full Speed Python
 
-####Information
+####Modules
 Modules are python files containing functions and variables of all types such
 as dictionaries, arrays, objects etc.  Use the "import" statement to use a module.
 
+####Functions
 Functions with in a module only execute when called.  If your module has print statements
 outside of functions those prints statements will execute.
 
@@ -14,9 +15,26 @@ Two kinds of functions:
 1. parameterized functions are functions that takes in parameters
 2. Non-parameterized functions are functions that do not accept parameters
 
-
 Return statements evaluate any expression you pass to it. eg return x<5<y will
 return true if you pass f(3,6) to the function
+
+#####Recursion
+Recursion is the most important concept when using a function.  Recursion is when a functions 
+calls itself again and again until it reaches its base condition.  
+There are two parts of recursion:
+1. Base condition
+2. Recursive function
+
+eg:The sum of all numbers from 1 up to and including that input natural number n:
+```
+def sum_N_Numbers (n):
+  if n <= 1:
+    return n //base  condition
+  else:
+    return n + sum_N_Numbers (n-1) //recursive function
+```
+
+
 
 
 ####Strings
