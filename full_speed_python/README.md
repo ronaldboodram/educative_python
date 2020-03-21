@@ -1,5 +1,25 @@
 #Full Speed Python
 
+#####Git
+to use git from different computers, make use of ssh keys.  
+1. Create or use existing ssh keys
+2. Add ssh keys to your keychain: eg ssh-add ~./ssh/id_rsa
+3. add the ssh key to github
+4. clone and push to your remote repo
+
+####Loops
+For loops
+eg
+```
+for c in "string":
+    print(c)
+
+```
+
+The enumerate function is very useful since it returns an iterable that give you the index and value 
+of items in a list for example. link: https://www.geeksforgeeks.org/enumerate-in-python/
+You can also choose what index to start iterating from too.
+
 ####Modules
 Modules are python files containing functions and variables of all types such
 as dictionaries, arrays, objects etc.  Use the "import" statement to use a module.
