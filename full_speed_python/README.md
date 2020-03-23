@@ -37,9 +37,31 @@ method can do, **except:** return a value.
 use 'def __str__(self):' method to return string representation to the end user
 use 'def __repr__(self):' method to return output to the dev
 
+**Inheritance**, is where one class the child inherits the attribute and methods of the parent.
+eg. 
+```
+Class Parent():
+    ....
+Class Child(Parent): <-You can see the Parent being inherited by the child, this is how you know
+                        if a class is a child or not.
+    ....
+```
 
+You can call the parents constructor from inside the child constructor and modify it
+You can overwrite a parents method by rewriting that method
+A child class inherits all the attributes and methods of the parent and you only need to create a __str__()
+to test this.
 
- 
+Multi-Level inheritance is where one class inherits from another then another class inherits from that class
+eg. class GrandParent(): > class Parent(GrandParent): > class Child(Parent):
+
+Multiple inheritance is where a class can inherit from more than one Parent Class.
+eg. class ChildClass (Parent1, Parent2, Parent3, ...):
+
+The built-in super function allows the child class (or subclass) to access inherited methods of the 
+parent class (or superclass) that have been overwritten in the child class. When we called the 
+parent class’s methods super().__init__(name) and super().greet(), we didn’t explicitly add self as a parameter 
+to these methods.
 
 
 ####Iteration and Loops
