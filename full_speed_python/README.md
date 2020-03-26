@@ -7,6 +7,34 @@ to use git from different computers, make use of ssh keys.
 3. add the ssh key to github
 4. clone and push to your remote repo
 
+####Iterators
+You can use the built-in function iter()  can be used to build iterator objects and the next function
+can be used to iterate over their content.  Once there are no more elements the iter() function raises
+the "StopIteration" exception.
+
+You can implement Iterators as classes using the **__iter__() and __next__()** methods.  Objects created
+from such a class can be used in for loops.
+eg.
+```
+class MyRange:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def __iter__(self): # returns the iterator object itself
+        return self
+
+    def __next__(self): # returns the next item in the sequence
+        if self.a < self.b:
+            value = self.a
+            self.a += 1
+            return value
+        else:
+            raise StopIteration
+for value in MyRange(1, 4):
+     print(value)
+```
+
 ####Classes
 A class contains a group of properties called attributes and functions.  Functions with in a 
 class are called methods. **The methods are their to manipulate the properties in a class.**
@@ -17,11 +45,12 @@ A constructor method is used to initialize the class's attributes. In the class 
 is used to reference the attributes belonging to that instance of the class.
 
 To assign attributes to the instance of the class, use the keyword 'self' and the 'dot' operator 
-from inside of the constructor, see below class example.
+from inside of the constructor, see below class example.  For a method to access variables in a class,
+that method must take the 'self' parameter.
 
 ```
 class Person:
-
+    x3 = 10
      def __init__(self, name, age): # class constructor
          #note that the attributes are not declared outside of the constructure.
          self.name = name # class variable
@@ -29,6 +58,9 @@ class Person:
 
      def greet(self): # class function to print a greeting
          print("Hello, my name is %s!" % self.name)
+
+     def print_x3(self):
+         print("this is x3: ", self.x3) 
 ```
 
 The constructor is a method and can perform type checking of parameters, basically anything a 
