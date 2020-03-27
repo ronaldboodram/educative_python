@@ -7,13 +7,121 @@ to use git from different computers, make use of ssh keys.
 3. add the ssh key to github
 4. clone and push to your remote repo
 
+
+####Asynchronous programming
+Asynchronous programming allows you to write concurrent code that runs in a single thread.  **Single thread concurrency**  
+Single thread allows you to decide where the scheduler will switch from one task to another, which means that sharing 
+data between tasks is safer 
+and easier.  eg. task1 and task2 run in the same thread, first the OS paused task1 then starts task2 then pause task2 
+and switched back to task1
+
+In Synchronous programming, the program steps through the program line by line. waits on till a function is finish before
+moving on to the next one.
+
+Three  parts to Async programming:
+1. coroutines
+2. event loop
+3. futures
+
+First import **asyncio** library.
+
+Coroutines are async functions.  use the keyword async before def when creating a function to make it an async function.
+
+You can get a result from an async function by using the `await` key word or using the `event loop`
+The event loop takes care of managing all the async functions execution.  Event loops have 2 methods to handle 
+coroutines:
+1. run_until_complete(function1(),function2()..)
+2. run_forever(function1(),function2()..)
+
+Example of event loop:
+```
+loop = asyncio.new_event_loop()  # create loop
+future = loop.create_task(my_coroutine) # add coroutine to the loop
+loop.run_until_complete(future) # add coroutine to the loop concurrently
+loop.close() # close the loop
+```
+
+Whenever you are calling an async function outside of an event loop you use the `await` keyword such as calling an async
+function from inside another async function or function, using the asyncio.sleep() eg await asyncio.sleep(1) to cause a
+function to sleep for 1 second before continuing.
+
+**Executing more than one async functions 2 options** 
+
+1. use the `asyncio.gather( function1(),function2()...function_n())` in the 
+event loop, if you want all the coroutines results to be return at the same time in an order way.
+eg `future = loop.run_until_complete(asyncio.gather( function1(),function2()...function_n()))`
+
+2. Use the `asyncio.as_completed()` method to return the results of coroutines as soon as they are finish computing. 
+Create a function that takes in task(s) and uses the `asyncio.as_completed()` method to return the results as soon as 
+they are ready.
+
+```
+import asyncio
+
+async def compute_square(x):
+    await asyncio.sleep(1)
+    return x * x
+
+async def square(x):
+    print('Square', x)
+    res = await compute_square(x)
+    print('End square', x)
+    return res
+  
+# Create event loop
+loop = asyncio.get_event_loop()
+
+async def when_done(tasks):
+    for res in asyncio.as_completed(tasks):
+        print('Result:', await res)
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(when_done([
+    square(1),
+    square(2),
+    square(3)
+]))
+```
+
+`Futures` hold the output of an event loop and are the output of an event loop.
+
+
+
+####Variables
+**Python instance variables** are identifiable because they use the key word 'self', variables that are persistent 
+for that object of the class. Objects are instances of a class. 
+**Python Class variables**  are variables that persist across all instances of a class, if you update a class variable
+in one instance of a class then all objects of that class will reflect that updated class variable value.
+**Any** variable that is not the an instance variable or a class variable is only temporary for that point in time execution
+and does not persist.  The OS does not track or maintain the state of such a variable
+
+####Generators
+A generator is a function which returns a value each time the yield keyword is used.
+Generators are functions that also return an iterator.  They use the keyword **yield** and are the preferred way to create
+an iterator in python.  The yield keyword works much like the return keyword, but—unlike return—it allows the function 
+to eventually resume its execution. 
+
+Side note: The Fibonacci Sequence is the series of numbers in which the next term is found by adding the two previous terms:
+n = (n-2) + (n-1)
+```
+
+#The yeild keywords does not have to be at the end of the function:
+
+def myrange(a, b):
+    while a < b:
+      yield a
+      a += 1
+```
+
+
+
 ####Iterators
 You can use the built-in function iter()  can be used to build iterator objects and the next function
 can be used to iterate over their content.  Once there are no more elements the iter() function raises
 the "StopIteration" exception.
 
 You can implement Iterators as classes using the **__iter__() and __next__()** methods.  Objects created
-from such a class can be used in for loops.
+from such a class can be used in for loops.  Python3 uses __next__() other versions of Python uses next().
 eg.
 ```
 class MyRange:
@@ -25,14 +133,12 @@ class MyRange:
         return self
 
     def __next__(self): # returns the next item in the sequence
-        if self.a < self.b:
-            value = self.a
-            self.a += 1
-            return value
-        else:
+        if self.a >= self.b:
             raise StopIteration
-for value in MyRange(1, 4):
-     print(value)
+
+        self.a += 1
+
+        return self.a
 ```
 
 ####Classes

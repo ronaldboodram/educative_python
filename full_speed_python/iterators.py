@@ -1,21 +1,52 @@
 class MyRange:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
-    def __init__(self, n):
-        self.n = n
-
-    def __iter__(self): # returns the iterator object itself
+    def __iter__(self):  # returns the iterator object itself
         return self
 
-    def __next__(self): # returns the next item in the sequence
-        evenArray = []  # next method returns this list
-        for i in range(1, self.n + 1):
-            if i % 2 is 0:  # checks if number is even
-                value = i
-                evenArray.append(i)  # adds the even number to the list
-            else:  # number was odd
-                i += 1
-        return evenArray
+    def __next__(self):  # returns the next item in the sequence
+        if self.a >= self.b:
+            raise StopIteration
+
+        self.a += 1
+
+        return self.a
 
 
-for value in MyRange(8):
-     print(value)
+class Test:
+
+    # Constructor
+    def __init__(self, limit):
+        self.limit = limit
+
+        # Called when iteration is initialized
+
+    def __iter__(self):
+        self.x = 10
+        return self
+
+    # To move to next element. In Python 3,
+    # we should replace next with __next__
+    def __next__(self):
+        # Store current value ofx
+        x = self.x
+
+        # Stop iteration if limit is reached
+        if x > self.limit:
+            raise StopIteration
+
+            # Else increment and return old value
+        self.x = x + 1;
+        return x
+
+
+# Prints numbers from 10 to 15
+for i in Test(15):
+    print(i)
+
+# count up to n
+
+for i in MyRange(5, 10):
+    print(i)
