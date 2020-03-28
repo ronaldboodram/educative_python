@@ -35,15 +35,21 @@ coroutines:
 
 Example of event loop:
 ```
-loop = asyncio.new_event_loop()  # create loop
+loop = asyncio.get_event_loop()  # create loop
 future = loop.create_task(my_coroutine) # add coroutine to the loop
 loop.run_until_complete(future) # add coroutine to the loop concurrently
 loop.close() # close the loop
 ```
 
-Whenever you are calling an async function outside of an event loop you use the `await` keyword such as calling an async
-function from inside another async function or function, using the asyncio.sleep() eg await asyncio.sleep(1) to cause a
-function to sleep for 1 second before continuing.
+```
+Create the loop
+get the results from the loop using run_until_complete or run_forever methods
+close the loop
+```
+
+Whenever you are calling an async function outside of an event loop you use the `await` keyword  which is only possible 
+inside async functions and will wait for the coroutine to terminate and return the result. using the asyncio.sleep() 
+eg await asyncio.sleep(1) to cause a function to sleep for 1 second before continuing.
 
 **Executing more than one async functions 2 options** 
 
